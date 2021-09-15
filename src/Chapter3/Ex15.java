@@ -1,11 +1,12 @@
 package Chapter3;
+
 import java.util.Scanner;
 
-class Account{
+class Account15 {
     private String name;
     private double balance;
 
-    public Account(String name, double balance) {
+    public Account15(String name, double balance) {
         this.name = name;
         if(balance > 0.0)
             this.balance = balance;
@@ -31,31 +32,32 @@ class Account{
         return balance;
     }
 }
-public class Ex11 {
+public class Ex15 {
+    public static void displayAccount(Account15 accountToDisplay){
+        System.out.printf("Account name: %s%nBalance: %f%n%n",
+                accountToDisplay.getName(), accountToDisplay.getBalance());
+    }
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
 
-        Account15 acc1 = new Account15("Name Surname", 50.00);
-        Account15 acc2 = new Account15("Name surname", -7.53);
+        Account15 acc3 = new Account15("Name Surname", 50.00);
+        Account15 acc4 = new Account15("Name surname", -7.53);
 
-        System.out.printf("%s balance: $%.2f%n",
-                acc1.getName(), acc1.getBalance());
-        System.out.printf("%s balance: $%.2f%n",
-                acc2.getName(), acc2.getBalance());
-
+        displayAccount(acc3);
+        displayAccount(acc4);
         //deposit
         System.out.println("Enter deposit amount for account1: ");
         double depositAmount = input.nextDouble();
         System.out.printf("%n adding %.2f to account balance%n%n",
                 depositAmount);
-        acc1.deposit(depositAmount);
+        acc3.deposit(depositAmount);
 
         //withdraw acc1
         System.out.println("Enter amount for withdraw for acc1:");
         double withdrawAmount = input.nextDouble();
-        if(withdrawAmount <= acc1.getBalance()){
-            acc1.withdraw(withdrawAmount);
-            System.out.println("%n Successful withdraw");
+        if(withdrawAmount <= acc3.getBalance()){
+            acc3.withdraw(withdrawAmount);
+            System.out.println("\n Successful withdraw");
         }
         else
             System.out.println("Withdraw amount exceeded account balance");
@@ -63,17 +65,14 @@ public class Ex11 {
         //withdraw acc2
         System.out.println("Enter amount for withdraw for acc2:");
         withdrawAmount = input.nextDouble();
-        if(withdrawAmount <= acc2.getBalance()){
-            acc2.withdraw(withdrawAmount);
-            System.out.println("/nSuccessful withdraw");
+        if(withdrawAmount <= acc4.getBalance()){
+            acc4.withdraw(withdrawAmount);
+            System.out.println("\nSuccessful withdraw");
         }
         else
             System.out.println("Withdraw amount exceeded account balance");
 
-        //display balances
-        System.out.printf("%s balance: $%.2f%n",
-                acc1.getName(), acc1.getBalance());
-        System.out.printf("%s balance: $%.2f%n",
-                acc2.getName(), acc2.getBalance());
+        displayAccount(acc3);
+        displayAccount(acc4);
     }
 }

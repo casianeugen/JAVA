@@ -8,7 +8,8 @@ class Employee{
     public Employee(String firstName, String lastName, double salary) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.salary = salary;
+        if(salary > 0)
+            this.salary = salary;
     }
 
     public String getFirstName() {
@@ -32,8 +33,7 @@ class Employee{
     }
 
     public void setSalary(double salary) {
-        if(salary > 0)
-            this.salary = salary;
+        this.salary = salary;
     }
 
     public double raiseSalary(double salary){
