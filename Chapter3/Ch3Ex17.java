@@ -1,12 +1,11 @@
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Objects;
 import javax.swing.*;
 
 class HealthRecords{
@@ -18,6 +17,8 @@ class HealthRecords{
     private int year;
     private double height;
     private double weight;
+
+    public HealthRecords() {}
 
     public HealthRecords(String name, String surname, String gender, int day, int month, int year, double height, double weight) {
         this.name = name;
@@ -101,30 +102,46 @@ class HealthRecords{
         return (int) ChronoUnit.YEARS.between(birthdate, now);
     }
 
-    public int maxHeartRate(){
+    public int maxHeartRate(int day, int month, int year){
         return 220 - getAge(day, month, year);
     }
 
     public int minTargetHeartRate(){
-        return (int) (maxHeartRate() * 0.5);
+        return (int) (maxHeartRate(day, month, year) * 0.5);
     }
 
     public int maxTargetHeartRate(){
-        return (int) (maxHeartRate() * 0.85);
+        return (int) (maxHeartRate(day, month, year) * 0.85);
     }
 
     public double findBMI(double height, double weight){
-        return (weight * 703) / (height * height);
+        return (weight) / (height * height);
     }
 }
-
+class Result extends JFrame{
+    JPanel resultPanel = new JPanel();
+    JLabel resultLabel = new JLabel();
+    JButton OK = new JButton("OK");
+    Result(){
+        super("Result");
+        setSize(300, 230);
+        setLayout(new FlowLayout());
+        resultPanel.setLayout(new FlowLayout());
+        resultPanel.setSize(195,180);
+        OK.addActionListener(e -> dispose());
+        resultPanel.add(resultLabel);
+        add(resultPanel);
+        add(OK);
+        setVisible(false);
+        setResizable(false);
+        setLocationRelativeTo(null);
+    }
+}
 public class Ch3Ex17 extends JFrame{
     String[] genders = {"Male", "Female"};
     ArrayList<String> years = new ArrayList<>();
     ArrayList<String> months = new ArrayList<>();
     ArrayList<String> days = new ArrayList<>();
-    ArrayList<String> heights = new ArrayList<>();
-    ArrayList<String> weights = new ArrayList<>();
     JLabel nameL = new JLabel("Name: ");
     JLabel surnameL = new JLabel("Surname: ");
     JLabel genderL = new JLabel("Gender: ");
@@ -135,9 +152,9 @@ public class Ch3Ex17 extends JFrame{
     JTextField heightText;
     JTextField weightText;
     JComboBox<String> genderCombo;
-    JComboBox<String> dayCombo = new JComboBox<String>();
-    JComboBox<String> monthCombo = new JComboBox<String>();
-    JComboBox<String> yearCombo = new JComboBox<String>();
+    JComboBox<String> dayCombo = new JComboBox<>();
+    JComboBox<String> monthCombo = new JComboBox<>();
+    JComboBox<String> yearCombo = new JComboBox<>();
     JPanel birthDate = new JPanel();
     JPanel buttonPrint = new JPanel();
     JButton Print = new JButton("Print");
@@ -162,14 +179,10 @@ public class Ch3Ex17 extends JFrame{
             months.add(m + "");
         for(int d = 1; d <= 31; d++)
             days.add(d + "");
-        for(int h = 140; h <= 220; h++)
-            heights.add(h + "");
-        for(int w = 40; w <= 150; w++)
-            weights.add(w + "");
         genderCombo = new JComboBox<>(genders);
-        dayCombo.setModel(new DefaultComboBoxModel<String>(days.toArray(new String[0])));
-        monthCombo.setModel(new DefaultComboBoxModel<String>(months.toArray(new String[0])));
-        yearCombo.setModel(new DefaultComboBoxModel<String>(years.toArray(new String[0])));
+        dayCombo.setModel(new DefaultComboBoxModel<>(days.toArray(new String[0])));
+        monthCombo.setModel(new DefaultComboBoxModel<>(months.toArray(new String[0])));
+        yearCombo.setModel(new DefaultComboBoxModel<>(years.toArray(new String[0])));
         nameText.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -194,11 +207,28 @@ public class Ch3Ex17 extends JFrame{
                 weightText.setText("");
             }
         });
-        Print.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
+        Print.addActionListener(e -> {
+            Result rs = new Result();
+            HealthRecords hr = new HealthRecords();
+            hr.setName(nameText.getText());
+            hr.setSurname(surnameText.getText());
+            hr.setGender((String) genderCombo.getSelectedItem());
+            hr.setDay(Integer.parseInt(Objects.requireNonNull(dayCombo.getSelectedItem()).toString()));
+            hr.setMonth(Integer.parseInt(Objects.requireNonNull(monthCombo.getSelectedItem()).toString()));
+            hr.setYear(Integer.parseInt(Objects.requireNonNull(yearCombo.getSelectedItem()).toString()));
+            hr.setHeight(Double.parseDouble(heightText.getText()));
+            hr.setWeight(Double.parseDouble(weightText.getText()));
+            rs.resultLabel.setText("<html>" +
+                    hr.getName() + " " + hr.getSurname() + "<br>" +
+                    "Gender: " + hr.getGender() + "<br>" +
+                    "Date of birth: " + hr.getDay() + "/" + hr.getMonth() + "/" + hr.getYear() + "<br>" +
+                    "Height: " + hr.getHeight() + " meters<br>" + "Weight: " + hr.getWeight() + " kg<br>" +
+                    "Is " + hr.getAge(hr.getDay(), hr.getMonth(), hr.getYear()) + " years old<br>" +
+                    "BMI: " + hr.findBMI(hr.getHeight(), hr.getWeight()) + "<br>" +
+                    "Maximum heart rate: " + hr.maxHeartRate(hr.getDay(), hr.getMonth(), hr.getYear()) + "<br>" +
+                    "Target heart rate range: Between " + hr.minTargetHeartRate() + " and " +
+                    hr.maxTargetHeartRate() + "</html>");
+            rs.setVisible(true);
         });
         StatusPanel.setLayout(new FlowLayout());
         buttonPrint.setLayout(new FlowLayout());
@@ -273,6 +303,7 @@ public class Ch3Ex17 extends JFrame{
         gbc.gridy = 7;
         gbc.gridwidth = 2;
         add(StatusPanel, gbc);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
         setVisible(true);

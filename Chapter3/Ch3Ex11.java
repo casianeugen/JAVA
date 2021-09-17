@@ -34,8 +34,8 @@ public class Ch3Ex11 {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
 
-        Account15 acc1 = new Account15("Name Surname", 50.00);
-        Account15 acc2 = new Account15("Name surname", -7.53);
+        Account15 acc1 = new Account15("Name, Surname", 50.00);
+        Account15 acc2 = new Account15("Name, surname", -7.53);
 
         System.out.printf("%s balance: $%.2f%n",
                 acc1.getName(), acc1.getBalance());
