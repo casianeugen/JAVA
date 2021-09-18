@@ -226,14 +226,15 @@ public class Ch3Ex17 extends JFrame{
                         "Date of birth: " + hr.getDay() + "/" + hr.getMonth() + "/" + hr.getYear() + "<br>" +
                         "Height: " + hr.getHeight() + " meters<br>" + "Weight: " + hr.getWeight() + " kg<br>" +
                         "Is " + hr.getAge(hr.getDay(), hr.getMonth(), hr.getYear()) + " years old<br>" +
-                        "BMI: " + hr.findBMI(hr.getHeight(), hr.getWeight()) + "<br>" +
+                        "BMI: " + String.format("%.2f", hr.findBMI(hr.getHeight(), hr.getWeight())) + "<br>" +
                         "Maximum heart rate: " + hr.maxHeartRate(hr.getDay(), hr.getMonth(), hr.getYear()) + "<br>" +
                         "Target heart rate range: Between " + hr.minTargetHeartRate() + " and " +
                         hr.maxTargetHeartRate() + "</html>");
                 rs.setVisible(true);
             }
             catch(NumberFormatException ex){
-                JOptionPane.showMessageDialog(this, "Insert correct data!");
+                JOptionPane.showMessageDialog(this, "Insert correct data!",
+                        "Height or Weight input", JOptionPane.WARNING_MESSAGE);
             }
         });
         StatusPanel.setLayout(new FlowLayout());
