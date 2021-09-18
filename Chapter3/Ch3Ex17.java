@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -216,19 +217,24 @@ public class Ch3Ex17 extends JFrame{
             hr.setDay(Integer.parseInt(Objects.requireNonNull(dayCombo.getSelectedItem()).toString()));
             hr.setMonth(Integer.parseInt(Objects.requireNonNull(monthCombo.getSelectedItem()).toString()));
             hr.setYear(Integer.parseInt(Objects.requireNonNull(yearCombo.getSelectedItem()).toString()));
-            hr.setHeight(Double.parseDouble(heightText.getText()));
-            hr.setWeight(Double.parseDouble(weightText.getText()));
-            rs.resultLabel.setText("<html>" +
-                    hr.getName() + " " + hr.getSurname() + "<br>" +
-                    "Gender: " + hr.getGender() + "<br>" +
-                    "Date of birth: " + hr.getDay() + "/" + hr.getMonth() + "/" + hr.getYear() + "<br>" +
-                    "Height: " + hr.getHeight() + " meters<br>" + "Weight: " + hr.getWeight() + " kg<br>" +
-                    "Is " + hr.getAge(hr.getDay(), hr.getMonth(), hr.getYear()) + " years old<br>" +
-                    "BMI: " + hr.findBMI(hr.getHeight(), hr.getWeight()) + "<br>" +
-                    "Maximum heart rate: " + hr.maxHeartRate(hr.getDay(), hr.getMonth(), hr.getYear()) + "<br>" +
-                    "Target heart rate range: Between " + hr.minTargetHeartRate() + " and " +
-                    hr.maxTargetHeartRate() + "</html>");
-            rs.setVisible(true);
+            try{
+                hr.setHeight(Double.parseDouble(heightText.getText()));
+                hr.setWeight(Double.parseDouble(weightText.getText()));
+                rs.resultLabel.setText("<html>" +
+                        hr.getName() + " " + hr.getSurname() + "<br>" +
+                        "Gender: " + hr.getGender() + "<br>" +
+                        "Date of birth: " + hr.getDay() + "/" + hr.getMonth() + "/" + hr.getYear() + "<br>" +
+                        "Height: " + hr.getHeight() + " meters<br>" + "Weight: " + hr.getWeight() + " kg<br>" +
+                        "Is " + hr.getAge(hr.getDay(), hr.getMonth(), hr.getYear()) + " years old<br>" +
+                        "BMI: " + hr.findBMI(hr.getHeight(), hr.getWeight()) + "<br>" +
+                        "Maximum heart rate: " + hr.maxHeartRate(hr.getDay(), hr.getMonth(), hr.getYear()) + "<br>" +
+                        "Target heart rate range: Between " + hr.minTargetHeartRate() + " and " +
+                        hr.maxTargetHeartRate() + "</html>");
+                rs.setVisible(true);
+            }
+            catch(NumberFormatException ex){
+                JOptionPane.showMessageDialog(this, "Insert correct data!");
+            }
         });
         StatusPanel.setLayout(new FlowLayout());
         buttonPrint.setLayout(new FlowLayout());
