@@ -1,7 +1,6 @@
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -317,6 +316,6 @@ public class Ch3Ex17 extends JFrame{
     }
 
     public static void main(String[] args) {
-        new Ch3Ex17();
+        SwingUtilities.invokeLater(Ch3Ex17::new);
     }
 }
