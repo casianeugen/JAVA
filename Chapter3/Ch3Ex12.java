@@ -4,6 +4,9 @@ class Invoice{
     private int quantity;
     private double price;
 
+    public Invoice() {
+    }
+
     public Invoice(String number, String description, int quantity, double price) {
         this.number = number;
         this.description = description;
@@ -57,6 +60,12 @@ public class Ch3Ex12 {
         Invoice inv2 = new Invoice("23215", "Bread", 4, 1.2);
         Invoice inv3 = new Invoice("23216", "Water", 0, 2.8);
         Invoice inv4 = new Invoice("23217", "Donut", 2, -2.5);
+        Invoice inv5 = new Invoice();
+
+        inv5.setNumber("23218");
+        inv5.setDescription("Bread");
+        inv5.setQuantity(2);
+        inv5.setPrice(3.9);
 
         //Print invoices information
         System.out.printf("%nNo %s contain %s, quantity %d on price %.2f",
@@ -67,6 +76,8 @@ public class Ch3Ex12 {
                 inv3.getNumber(), inv3.getDescription(), inv3.getQuantity(), inv3.getPrice());
         System.out.printf("%nNo %s contain %s, quantity %d on price %.2f",
                 inv4.getNumber(), inv4.getDescription(), inv4.getQuantity(), inv4.getPrice());
+        System.out.printf("%nNo %s contain %s, quantity %d on price %.2f",
+                inv5.getNumber(), inv5.getDescription(), inv5.getQuantity(), inv5.getPrice());
 
         // Get invoice amount
         System.out.printf("%nTotal price of invoice %s: $%.2f",
@@ -77,6 +88,8 @@ public class Ch3Ex12 {
                 inv3.getNumber(), inv3.getInvoiceAmount(inv3.getQuantity(), inv3.getPrice()));
         System.out.printf("%nTotal price of invoice %s: $%.2f",
                 inv4.getNumber(), inv4.getInvoiceAmount(inv4.getQuantity(), inv4.getPrice()));
+        System.out.printf("%nTotal price of invoice %s: $%.2f",
+                inv5.getNumber(), inv5.getInvoiceAmount(inv5.getQuantity(), inv5.getPrice()));
 
 
     }
