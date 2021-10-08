@@ -7,15 +7,21 @@ public class Ch4Ex24 {
         int passes = 0;
         int failures = 0;
         int studentCounter = 1;
+        int x = 0;
 
         while (studentCounter <= 10){
             System.out.print("Enter result (1 = pass, 2 = fail): ");
             result = input.nextInt();
-            if (result == 1)
+            if (result == 1){
                 passes++;
-            else
+                studentCounter++;
+            }
+            else if (result == 2){
                 failures++;
-            studentCounter++;
+                studentCounter++;
+            }
+            else
+                System.out.println("Insert another number (only 1 or 2)");
         }
 
         System.out.printf("Passed: %d%nFailed: %d%n", passes, failures);
