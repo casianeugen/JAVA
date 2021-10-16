@@ -20,18 +20,6 @@ class HealthRecords{
 
     public HealthRecords() {}
 
-    public HealthRecords(String name, String surname, String gender,
-                         int day, int month, int year, double height, double weight) {
-        this.name = name;
-        this.surname = surname;
-        this.gender = gender;
-        this.day = day;
-        this.month = month;
-        this.year = year;
-        this.height = height;
-        this.weight = weight;
-    }
-
     public String getName() {
         return name;
     }
