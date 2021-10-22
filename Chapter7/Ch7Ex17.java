@@ -2,14 +2,14 @@ import java.util.Random;
 
 public class Ch7Ex17 {
     static Random random = new Random();
-    static int rolldice1(){
+    static int rollDie1(){
         return random.nextInt(6) + 1;
     }
-    static int rolldice2(){
+    static int rollDie2(){
         return random.nextInt(6) + 1;
     }
     static int sumDices(){
-        return rolldice1() + rolldice2();
+        return rollDie1() + rollDie2();
     }
     public static void main(String[] args) {
         int[] dices = new int[11];
