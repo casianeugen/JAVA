@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 class Rectangle{
     double width;
     double length;
@@ -36,9 +38,12 @@ class Rectangle{
 }
 public class Ch8Ex4 {
     public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
         Rectangle r1 = new Rectangle();
-        r1.setLength(14);
-        r1.setWidth(10);
+        System.out.print("Enter a length of rectangle: ");
+        r1.setLength(input.nextInt());
+        System.out.print("Enter a width of rectangle: ");
+        r1.setWidth(input.nextInt());
         System.out.printf("Area: %.2f%n", r1.area(r1.getLength(), r1.getWidth()));
         System.out.printf("Perimeter: %.2f%n", r1.perimeter(r1.getLength(), r1.getWidth()));
     }
