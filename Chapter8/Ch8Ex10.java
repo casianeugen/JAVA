@@ -28,7 +28,5 @@ public class Ch8Ex10 {
         Thread.sleep(tl.YELLOW.getTime() * 1000L);
         System.out.println(ANSI_RED + colors[2]);
         Thread.sleep(tl.RED.getTime() * 1000L);
-        System.out.println(ANSI_YELLOW + colors[1]);
-        Thread.sleep(tl.YELLOW.getTime() * 1000L);
     }
 }
